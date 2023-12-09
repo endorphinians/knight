@@ -20,6 +20,7 @@
   },
   "homepage": "https://gitlab.com/endorphinians/knight-knight#readme",
   "dependencies": {
+    "@cyclic.sh/dynamodb": "^0.0.35",
     "@popperjs/core": "^2.11.8",
     "aos": "^2.3.4",
     "aws-sdk": "^2.1515.0",
