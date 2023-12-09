@@ -1,0 +1,32 @@
+{
+  "name": "knight-knight",
+  "version": "1.0.1",
+  "description": "webpage",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/endorphinians/knight-knight.git"
+  },
+  "keywords": [
+    "anal"
+  ],
+  "author": "guekeren",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/endorphinians/knight-knight/issues"
+  },
+  "homepage": "https://gitlab.com/endorphinians/knight-knight#readme",
+  "dependencies": {
+    "aos": "^2.3.4",
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.2",
+    "boxicons": "^2.1.4",
+    "glightbox": "^3.2.0",
+    "isotope-layout": "^3.0.6",
+    "swiper": "^11.0.5",
+    "swiper-bundle": "^0.0.1-security"
+  }
+}
