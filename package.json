@@ -28,12 +28,32 @@
     "bootstrap-icons": "^1.11.2",
     "boxicons": "^2.1.4",
     "glightbox": "^3.2.0",
+    "isotope-cells-by-column": "^1.1.4",
+    "isotope-cells-by-row": "^1.1.4",
+    "isotope-fit-columns": "^1.1.4",
     "isotope-layout": "^3.0.6",
+    "isotope-packery": "^2.0.1",
+    "jquery-ui": "^1.13.2",
+    "jstree": "^3.3.16",
+    "mark.js": "^8.11.1",
     "popper.js": "^1.16.1",
+    "prismjs": "^1.29.0",
     "swiper": "^11.0.5",
     "swiper-bundle": "^0.0.1-security"
   },
   "devDependencies": {
-    "eslint": "^8.55.0"
+    "bundle-scss": "^1.5.4",
+    "css": "^3.0.0",
+    "eslint": "^8.55.0",
+    "jquery": "^3.7.1",
+    "jquery-smooth-scroll": "^2.2.0",
+    "prettier": "^3.1.1",
+    "sass": "^1.69.5",
+    "scss": "^0.2.4",
+    "scss-parser": "^1.0.6",
+    "smooth-scrollbar": "^8.8.4",
+    "stylelint": "^16.0.2",
+    "sweet-scroll": "^4.0.0",
+    "tooltip": "^1.6.1"
   }
 }
