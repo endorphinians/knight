@@ -1,4 +1,5 @@
 import { c as createElementIfNotDefined } from '../shared/create-element-if-not-defined.mjs';
+import { m as makeElementsArray } from '../shared/utils.mjs';
 
 function Navigation(_ref) {
   let {
@@ -22,7 +23,6 @@ function Navigation(_ref) {
     nextEl: null,
     prevEl: null
   };
-  const makeElementsArray = el => (Array.isArray(el) ? el : [el]).filter(e => !!e);
   function getEl(el) {
     let res;
     if (el && typeof el === 'string' && swiper.isElement) {
@@ -31,8 +31,10 @@ function Navigation(_ref) {
     }
     if (el) {
       if (typeof el === 'string') res = [...document.querySelectorAll(el)];
-      if (swiper.params.uniqueNavElements && typeof el === 'string' && res.length > 1 && swiper.el.querySelectorAll(el).length === 1) {
+      if (swiper.params.uniqueNavElements && typeof el === 'string' && res && res.length > 1 && swiper.el.querySelectorAll(el).length === 1) {
         res = swiper.el.querySelector(el);
+      } else if (res && res.length === 1) {
+        res = res[0];
       }
     }
     if (el && !res) return el;
@@ -154,7 +156,14 @@ function Navigation(_ref) {
     nextEl = makeElementsArray(nextEl);
     prevEl = makeElementsArray(prevEl);
     const targetEl = e.target;
-    if (swiper.params.navigation.hideOnClick && !prevEl.includes(targetEl) && !nextEl.includes(targetEl)) {
+    let targetIsButton = prevEl.includes(targetEl) || nextEl.includes(targetEl);
+    if (swiper.isElement && !targetIsButton) {
+      const path = e.path || e.composedPath && e.composedPath();
+      if (path) {
+        targetIsButton = path.find(pathEl => nextEl.includes(pathEl) || prevEl.includes(pathEl));
+      }
+    }
+    if (swiper.params.navigation.hideOnClick && !targetIsButton) {
       if (swiper.pagination && swiper.params.pagination && swiper.params.pagination.clickable && (swiper.pagination.el === targetEl || swiper.pagination.el.contains(targetEl))) return;
       let isHidden;
       if (nextEl.length) {

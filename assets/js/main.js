@@ -1,10 +1,7 @@
 /**
-* Template Name: Knight
-* Updated: Sep 18 2023 with Bootstrap v5.3.2
-* Template URL: https://bootstrapmade.com/knight-free-bootstrap-theme/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+ * Combined JavaScript from two provided scripts
+ * Author: Combined and corrected by ChatGPT
+ */
 (function() {
   "use strict";
 
@@ -12,169 +9,167 @@
    * Easy selector helper function
    */
   const select = (el, all = false) => {
-    el = el.trim()
+    el = el.trim();
     if (all) {
-      return [...document.querySelectorAll(el)]
+      return [...document.querySelectorAll(el)];
     } else {
-      return document.querySelector(el)
+      return document.querySelector(el);
     }
-  }
+  };
 
   /**
    * Easy event listener function
    */
   const on = (type, el, listener, all = false) => {
-    let selectEl = select(el, all)
+    const selectEl = select(el, all);
     if (selectEl) {
       if (all) {
-        selectEl.forEach(e => e.addEventListener(type, listener))
+        selectEl.forEach((e) => e.addEventListener(type, listener));
       } else {
-        selectEl.addEventListener(type, listener)
+        selectEl.addEventListener(type, listener);
       }
     }
-  }
+  };
 
   /**
-   * Easy on scroll event listener 
+   * Easy on scroll event listener
    */
-  const onscroll = (el, listener) => {
-    el.addEventListener('scroll', listener)
-  }
+  const onscroll = (listener) => {
+    window.addEventListener('scroll', listener);
+  };
 
   /**
    * Navbar links active state on scroll
    */
-  let navbarlinks = select('#navbar .scrollto', true)
   const navbarlinksActive = () => {
-    let position = window.scrollY + 200
-    navbarlinks.forEach(navbarlink => {
-      if (!navbarlink.hash) return
-      let section = select(navbarlink.hash)
-      if (!section) return
+    const position = window.scrollY + 200;
+    const navbarlinks = select('#navbar .scrollto', true);
+    navbarlinks.forEach((navbarlink) => {
+      if (!navbarlink.hash) return;
+      const section = select(navbarlink.hash);
+      if (!section) return;
       if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
-        navbarlink.classList.add('active')
+        navbarlink.classList.add('active');
       } else {
-        navbarlink.classList.remove('active')
+        navbarlink.classList.remove('active');
       }
-    })
-  }
-  window.addEventListener('load', navbarlinksActive)
-  onscroll(document, navbarlinksActive)
+    });
+  };
+
+  window.addEventListener('load', navbarlinksActive);
+  onscroll(navbarlinksActive);
 
   /**
    * Scrolls to an element with header offset
    */
   const scrollto = (el) => {
-    let header = select('#header')
-    let offset = header.offsetHeight
-
+    const header = select('#header');
+    let offset = header.offsetHeight;
     if (!header.classList.contains('header-scrolled')) {
-      offset -= 16
+      offset -= 16;
     }
-
-    let elementPos = select(el).offsetTop
+    const elementPos = select(el).offsetTop;
     window.scrollTo({
       top: elementPos - offset,
-      behavior: 'smooth'
-    })
-  }
+      behavior: 'smooth',
+    });
+  };
 
   /**
    * Header fixed top on scroll
    */
-  let selectHeader = select('#header')
-  if (selectHeader) {
-    let headerOffset = selectHeader.offsetTop
-    let nextElement = selectHeader.nextElementSibling
-    const headerFixed = () => {
+  const headerFixed = () => {
+    const selectHeader = select('#header');
+    if (selectHeader) {
+      const headerOffset = selectHeader.offsetTop;
       if ((headerOffset - window.scrollY) <= 0) {
-        selectHeader.classList.add('fixed-top')
-        nextElement.classList.add('scrolled-offset')
+        selectHeader.classList.add('fixed-top');
+        selectHeader.nextElementSibling.classList.add('scrolled-offset');
       } else {
-        selectHeader.classList.remove('fixed-top')
-        nextElement.classList.remove('scrolled-offset')
+        selectHeader.classList.remove('fixed-top');
+        selectHeader.nextElementSibling.classList.remove('scrolled-offset');
       }
     }
-    window.addEventListener('load', headerFixed)
-    onscroll(document, headerFixed)
-  }
+  };
+
+  window.addEventListener('load', headerFixed);
+  onscroll(headerFixed);
 
   /**
    * Back to top button
    */
-  let backtotop = select('.back-to-top')
+  const backtotop = select('.back-to-top');
   if (backtotop) {
     const toggleBacktotop = () => {
       if (window.scrollY > 100) {
-        backtotop.classList.add('active')
+        backtotop.classList.add('active');
       } else {
-        backtotop.classList.remove('active')
+        backtotop.classList.remove('active');
       }
-    }
-    window.addEventListener('load', toggleBacktotop)
-    onscroll(document, toggleBacktotop)
+    };
+    window.addEventListener('load', toggleBacktotop);
+    onscroll(toggleBacktotop);
   }
 
   /**
    * Mobile nav toggle
    */
-  on('click', '.mobile-nav-toggle', function(e) {
-    select('#navbar').classList.toggle('navbar-mobile')
-    this.classList.toggle('bi-list')
-    this.classList.toggle('bi-x')
-  })
+  on('click', '.mobile-nav-toggle', (e) => {
+    select('#navbar').classList.toggle('navbar-mobile');
+    e.target.classList.toggle('bi-list');
+    e.target.classList.toggle('bi-x');
+  });
 
   /**
    * Mobile nav dropdowns activate
    */
-  on('click', '.navbar .dropdown > a', function(e) {
+  on('click', '.navbar .dropdown > a', (e) => {
     if (select('#navbar').classList.contains('navbar-mobile')) {
-      e.preventDefault()
-      this.nextElementSibling.classList.toggle('dropdown-active')
+      e.preventDefault();
+      e.target.nextElementSibling.classList.toggle('dropdown-active');
     }
-  }, true)
+  }, true);
 
   /**
-   * Scrool with ofset on links with a class name .scrollto
+   * Scroll with offset on links with a class name .scrollto
    */
-  on('click', '.scrollto', function(e) {
-    if (select(this.hash)) {
-      e.preventDefault()
-
-      let navbar = select('#navbar')
+  on('click', '.scrollto', (e) => {
+    if (select(e.target.hash)) {
+      e.preventDefault();
+      const navbar = select('#navbar');
       if (navbar.classList.contains('navbar-mobile')) {
-        navbar.classList.remove('navbar-mobile')
-        let navbarToggle = select('.mobile-nav-toggle')
-        navbarToggle.classList.toggle('bi-list')
-        navbarToggle.classList.toggle('bi-x')
+        navbar.classList.remove('navbar-mobile');
+        const navbarToggle = select('.mobile-nav-toggle');
+        navbarToggle.classList.toggle('bi-list');
+        navbarToggle.classList.toggle('bi-x');
       }
-      scrollto(this.hash)
+      scrollto(e.target.hash);
     }
-  }, true)
+  }, true);
 
   /**
-   * Scroll with ofset on page load with hash links in the url
+   * Scroll with offset on page load with hash links in the URL
    */
   window.addEventListener('load', () => {
     if (window.location.hash) {
       if (select(window.location.hash)) {
-        scrollto(window.location.hash)
+        scrollto(window.location.hash);
       }
     }
   });
 
   /**
-   * Porfolio isotope and filter
+   * Portfolio isotope and filter
    */
   window.addEventListener('load', () => {
-    let portfolioContainer = select('.portfolio-container');
+    const portfolioContainer = select('.portfolio-container');
     if (portfolioContainer) {
-      let portfolioIsotope = new Isotope(portfolioContainer, {
+      const portfolioIsotope = new Isotope(portfolioContainer, {
         itemSelector: '.portfolio-item',
-        layoutMode: 'fitRows'
+        layoutMode: 'fitRows',
       });
 
-      let portfolioFilters = select('#portfolio-flters li', true);
+      const portfolioFilters = select('#portfolio-flters li', true);
 
       on('click', '#portfolio-flters li', function(e) {
         e.preventDefault();
@@ -184,68 +179,110 @@
         this.classList.add('filter-active');
 
         portfolioIsotope.arrange({
-          filter: this.getAttribute('data-filter')
+          filter: this.getAttribute('data-filter'),
         });
         portfolioIsotope.on('arrangeComplete', function() {
-          AOS.refresh()
+          AOS.refresh();
         });
       }, true);
     }
-
   });
 
   /**
-   * Initiate portfolio lightbox 
+   * Initiate portfolio lightbox
    */
   const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
+    selector: '.portfolio-lightbox',
   });
 
   /**
    * Portfolio details slider
    */
   new Swiper('.portfolio-details-slider', {
-    speed: 400,
+    speed: 380,
     loop: true,
     autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
+      delay: 5200,
+      disableOnInteraction: false,
     },
     pagination: {
       el: '.swiper-pagination',
       type: 'bullets',
-      clickable: true
-    }
+      clickable: true,
+    },
   });
 
   /**
    * Testimonials slider
    */
   new Swiper('.testimonials-slider', {
-    speed: 600,
+    speed: 580,
     loop: true,
     autoplay: {
-      delay: 5000,
-      disableOnInteraction: false
+      delay: 5200,
+      disableOnInteraction: false,
     },
     slidesPerView: 'auto',
     pagination: {
       el: '.swiper-pagination',
       type: 'bullets',
-      clickable: true
-    }
+      clickable: true,
+    },
   });
+
+  /**
+  * Masonry layout
+  */
+
+$('.grid').masonry({
+  // set itemSelector so .grid-sizer is not used in layout
+  itemSelector: '.grid-item',
+  // use element for option
+  columnWidth: '.grid-sizer',
+  percentPosition: true
+})
+
 
   /**
    * Animation on scroll
    */
   window.addEventListener('load', () => {
     AOS.init({
-      duration: 1000,
+      duration: 1200,
       easing: 'ease-in-out',
-      once: true,
-      mirror: false
-    })
+      once: false,
+      mirror: false,
+    });
   });
 
-})()
+  /**
+   * Custom Scroll Animation Handling
+   */
+  document.addEventListener('DOMContentLoaded', () => {
+    let lastScrollTop = 0;
+    const contentItems = document.querySelectorAll('.content');
+
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      contentItems.forEach((item) => {
+        const itemOffset = item.getBoundingClientRect().top + window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        if (scrollTop > lastScrollTop) {
+          // Scrolling down
+          if (scrollTop + windowHeight > itemOffset + 100) {
+            item.classList.add('animate');
+          }
+        } else {
+          // Scrolling up
+          if (scrollTop + windowHeight < itemOffset + item.clientHeight + 100) {
+            item.classList.remove('animate');
+          }
+        }
+      });
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check to animate items on load
+  });
+})();
